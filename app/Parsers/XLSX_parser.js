@@ -58,21 +58,17 @@ export class XLSX_parser {
       report_date_index,
     ];
 
-    const no_canceled = json.filter((row, index, arr) => {
-      if (
-        row[
-          json[0].findIndex((item) =>
-            item.trim().toLowerCase().includes("примечание")
-          )
-        ]
-          .trim()
-          .toLowerCase()
-          .includes("отмен")
-      ) {
-        return false;
-      } else {
-        return true;
-      }
+    const no_canceled = json.filter((row) => {
+      // 1. Find the index once (optimally you'd do this outside the filter)
+      const noteIndex = json[0].findIndex((item) =>
+        item.trim().toLowerCase().includes("примечание")
+      );
+
+      // 2. Get the value safely. If it's empty/null, use an empty string.
+      const noteValue = String(row[noteIndex] || "");
+
+      // 3. Perform the check
+      return !noteValue.trim().toLowerCase().includes("отмен");
     });
     const min_json = no_canceled.map((row, row_index) => {
       return row
