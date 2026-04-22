@@ -166,7 +166,7 @@ export const dateCalendrier = {
 };
 export const statCalendrier = {
   color: "white",
-  fontSize: "5vw",
+  fontSize: "3vw",
   textAlign: "center",
   userSelect: "none",
   marginTop: "2rem",
